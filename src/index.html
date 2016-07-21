@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Chapter Transfer UI</title>
+  <!-- build:css static/css/vendor.css -->
+  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
+  <link href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css" rel="stylesheet">
+  <!-- endbuild -->
+</head>
+
+<body>
+  <div id="main" class="container">
+    <router-view></router-view>
+  </div>
+  <!-- build:js static/js/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script type="text/javascript">
+      $.material.init()
+  </script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js static/js/bundle.js -->
+  <script src='dist/bundle.js'></script>
+  <!-- endbuild -->
+</body>
+
+</html>

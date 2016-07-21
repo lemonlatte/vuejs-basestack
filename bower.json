@@ -1,0 +1,14 @@
+{
+  "name": "vuejs-basestack",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Jim Yeh <lemonlatte@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "devDependencies": {
+    "bootstrap-material-design": "^0.5.10"
+  }
+}
