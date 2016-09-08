@@ -16,10 +16,10 @@ gulp.task('clean', function () {
     .pipe(clean());
 });
 
-gulp.task("watch", ["html"], function() {
+gulp.task("watch", ["clean", "fonts", "html"], function() {
   gulp.watch(["src/index.html", "src/**/*.vue", "src/**/*.js",
               "!src/dist/**"],
-             ["html", function(event) {
+             ["clean", "html", function(event) {
   }]);
 });
 
@@ -29,7 +29,7 @@ gulp.task("fonts", function () {
   .pipe(gulp.dest("./public/static/fonts/"))
 })
 
-gulp.task("html", ["clean", "bundle-js"], function(){
+gulp.task("html", ["bundle-js"], function(){
   return gulp.src("./src/index.html")
     .pipe(useref())
     .pipe(gulpif('*.js', rev()))
@@ -51,4 +51,4 @@ gulp.task("bundle-js", function() {
     .pipe(gulp.dest("./src/dist"));
 });
 
-gulp.task("default", ["html"]);
+gulp.task("default", ["clean", "fonts", "html"]);
