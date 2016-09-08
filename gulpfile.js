@@ -8,6 +8,7 @@ var gulp = require("gulp"),
     clean = require('gulp-clean'),
     gulpif = require('gulp-if'),
     rev = require("gulp-rev"),
+    rename = require('gulp-rename'),
     revReplace = require("gulp-rev-replace");
 
 gulp.task('clean', function () {
@@ -21,6 +22,12 @@ gulp.task("watch", ["html"], function() {
              ["html", function(event) {
   }]);
 });
+
+gulp.task("fonts", function () {
+  return gulp.src("src/bower_components/bootstrap/fonts/**/*.{ttf,woff,woff2,eof,svg}")
+  .pipe(rename({dirname: ''}))
+  .pipe(gulp.dest("./public/static/fonts/"))
+})
 
 gulp.task("html", ["clean", "bundle-js"], function(){
   return gulp.src("./src/index.html")
