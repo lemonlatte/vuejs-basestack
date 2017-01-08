@@ -2,13 +2,16 @@ var Vue = require('vue')
 var VueRouter = require('vue-router')
 Vue.use(VueRouter)
 
-var App = Vue.extend({})
-var router = new VueRouter()
+var Main = require('./app/main.vue')
 
-var main = require('./app/main.vue')
+var routes = [
+  {path: '/', component: main}
+]
 
-router.map({
-    '/': {component: main}
+var router = new VueRouter({routes})
+
+var app = new Vue({
+  router,
+  el: '#main',
+  render: h => h(Main)
 })
-
-router.start(App, '#main')

@@ -1,6 +1,6 @@
 {
   "name": "vuejs-basestack",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,8 +24,8 @@
     "gulp-useref": "^3.1.0",
     "superagent": "^2.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "vue": "^1.0.26",
-    "vue-router": "^0.7.13",
-    "vueify": "^8.7.0"
+    "vue": "^2.1.8",
+    "vue-router": "^2.1.1",
+    "vueify": "^9.4.0"
   }
 }
