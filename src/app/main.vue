@@ -8,7 +8,7 @@ body {
 <template>
 <div class="jumbotron">
   <h1>Hello, {{ who }}.</h1>
-  <p>This is a basestack for vuejs. This project integrate vuejs with gulp, vueify and browserify.</p>
+  <p>This is a basestack for vuejs. This project integrate vuejs with gulp, vueify and browserify-hmr.</p>
 </div>
 </template>
 

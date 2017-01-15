@@ -2,6 +2,8 @@ var gulp = require("gulp"),
     browserify = require("browserify"),
     vueify = require('vueify'),
     source = require('vinyl-source-stream'),
+    hmr = require('browserify-hmr'),
+    babelify = require('babelify'),
 
     notify = require('gulp-notify'),
     useref = require('gulp-useref'),
@@ -11,12 +13,35 @@ var gulp = require("gulp"),
     rename = require('gulp-rename'),
     revReplace = require("gulp-rev-replace");
 
+gulp.task("hmr", ["clean", "html"], function () {
+  const b = browserify('./src/main.js')
+    .plugin(hmr)
+    .transform(vueify)
+    .transform(babelify,
+               {presets: ["es2015", "stage-2"], plugins: ["transform-runtime"]})
+
+  function bundle() {
+    b.bundle()
+    .on('error', function(err){
+      console.error('' + err);
+      gulp.src('').pipe(notify('✖ Bunlde Failed ✖'));
+      this.emit('end');
+    })
+    .pipe(source("bundle.js"))
+    .pipe(gulp.dest("./public/static/js/"));
+  }
+
+  bundle();
+  gulp.watch(["src/index.html", "src/**/*.vue", "src/**/*.js", "!src/dist/**"],
+              function(event) { bundle(); });
+})
+
 gulp.task('clean', function () {
   return gulp.src('public/static/js/bundle-*', {read: false})
     .pipe(clean());
 });
 
-gulp.task("watch", ["clean", "fonts", "html"], function() {
+gulp.task("watch", ["clean", "fonts", "bundle-js", "html"], function() {
   gulp.watch(["src/index.html", "src/**/*.vue", "src/**/*.js",
               "!src/dist/**"],
              ["clean", "html", function(event) {
@@ -29,10 +54,9 @@ gulp.task("fonts", function () {
   .pipe(gulp.dest("./public/static/fonts/"))
 })
 
-gulp.task("html", ["bundle-js"], function(){
+gulp.task("html", function(){
   return gulp.src("./src/index.html")
     .pipe(useref())
-    .pipe(gulpif('*.js', rev()))
     .pipe(gulpif('*.css', rev()))
     .pipe(revReplace())
     .pipe(gulp.dest("./public"));
@@ -51,4 +75,5 @@ gulp.task("bundle-js", function() {
     .pipe(gulp.dest("./src/dist"));
 });
 
-gulp.task("default", ["clean", "fonts", "html"]);
+gulp.task("bundle", ["clean", "fonts", "bundle-js", "html"]);
+gulp.task("default", ["clean", "fonts", "bundle-js", "html"]);
