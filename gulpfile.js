@@ -5,6 +5,7 @@ var gulp = require("gulp"),
     hmr = require('browserify-hmr'),
     babelify = require('babelify'),
 
+    webserver = require('gulp-webserver'),
     notify = require('gulp-notify'),
     useref = require('gulp-useref'),
     clean = require('gulp-clean'),
@@ -13,7 +14,7 @@ var gulp = require("gulp"),
     rename = require('gulp-rename'),
     revReplace = require("gulp-rev-replace");
 
-gulp.task("hmr", ["clean", "html"], function () {
+gulp.task("dev", ["clean", "html"], function () {
   const b = browserify('./src/main.js')
     .plugin(hmr)
     .transform(vueify)
@@ -31,7 +32,18 @@ gulp.task("hmr", ["clean", "html"], function () {
     .pipe(gulp.dest("./public/static/js/"));
   }
 
-  bundle();
+  b.bundle()
+    .pipe(source("bundle.js"))
+    .pipe(gulp.dest("./public/static/js/"))
+    .on('end', function () {
+      gulp.src('public')
+      .pipe(webserver({
+        fallback: 'index.html',
+        livereload: false,
+        directoryListing: false,
+        open: true
+      }));
+    })
   gulp.watch(["src/index.html", "src/**/*.vue", "src/**/*.js", "!src/dist/**"],
               function(event) { bundle(); });
 })

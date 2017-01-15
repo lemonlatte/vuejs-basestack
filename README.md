@@ -21,8 +21,12 @@ Install all static dependencies:
 $ bower install
 ```
 
-Build all static files using gulp
+## Run
+
+To open a development server, just use:
 
 ```
-$ gulp
+$ gulp dev
 ```
+
+This task will bundle your codes, start watching files changing, and open a webserver for you.
