@@ -17,7 +17,11 @@ var gulp = require("gulp"),
 gulp.task("dev", ["clean", "html"], function () {
   const b = browserify('./src/main.js')
     .plugin(hmr)
-    .transform(vueify)
+    .transform(vueify,{
+      sass: {
+        indentedSyntax: true
+      }
+    })
     .transform(babelify,
                {presets: ["es2015", "stage-2"], plugins: ["transform-runtime"]})
 
