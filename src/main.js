@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 var Main = require('./app/main.vue')
 
 var routes = [
-  {path: '/', component: main}
+  {path: '/', component: Main}
 ]
 
 var router = new VueRouter({routes})
